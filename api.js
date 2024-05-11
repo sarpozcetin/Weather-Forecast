@@ -1,6 +1,10 @@
 /*
 * To-Do
-* Convert sunrise and sunset unix utc to local time javascript
+* Convert sunrise and sunset unix utc to local time javascript and temp stats
+* Read more on javascript file formatting and code structure
+* Learn how to use fetch for specific data fields rather than all fields ***
+* Run this program in a browser and display information on a browser page
+*  - Name of location, Sunrise/sunset, temperature, if sunny display picture if not display other
 */
 
 const getIP = `https://api.ipify.org`
@@ -46,9 +50,12 @@ fetch(getIP)
     })
 
     .then(weatherData => {
-        const [rise, set] = UTC_convert(weatherData.sys.sunrise, weatherData.sys.sunset)
-        console.log(rise)
-        console.log(set)
+        console.log(weatherData)
+        const [rise, set] = UTC_convert(weatherData.sys.sunrise, weatherData.sys.sunset);
+        const localSet = set.toLocaleString();
+        const localRise = rise.toLocaleString();
+        console.log(`Sunrise Time: ${localRise}`); 
+        console.log(`Sunset Time: ${localSet}`);
     })
 
     .catch (error => {
