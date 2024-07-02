@@ -6,6 +6,28 @@
         <title>
             LocalView
         </title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            #weatherInformation {
+                margin-bottom: 20px;
+            }
+
+            #timeImage img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+        </style>
     </head>
     <body>
         <h1>Weather Information</h1>
@@ -23,6 +45,24 @@
 
             function checkDayTime(current_tm, rise_tm, set_tm) {
                 return current_tm > rise_tm && current_tm < set_tm;
+            }
+            function send_to_server(data) {
+                fetch('/saveUserData', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => {
+                    if(!response.ok) {
+                        throw new Error('Network response error');
+                    }
+                    return response.json();
+                }).then(data => {
+                    console.log('Success:', data);
+                }).catch((error) => {
+                    console.error('Error:', error);
+                });
             }
 
             fetch(getIP)
@@ -47,6 +87,15 @@
                 })
             
                 .then(location => {
+                    const userData = {
+                        ip: location.query,
+                        timestamp: new Date().toISOString(),
+                        latitude: location.lat,
+                        longitude: location.lon,
+                        city: location.city,
+                        country: location.country
+                    };
+                    send_to_server(userData);
                     return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=1ae6d582e5f832e5ef80c26237b32034`);
                 })
             
