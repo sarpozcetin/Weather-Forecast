@@ -1,0 +1,18 @@
+TO-DO List:
+
+1.) Seperate webJS.html into three seperate files
+    - html file
+    - CSS styles
+    - script.js
+2.) Create table to store weather information
+3.) Add code into JS script to send user weather information to database
+4.) Require user to enter MySQL password (instead of hard code) for security reasons
+5.) Fix image issues
+
+
+
+
+OPTIONAL:
+1.) Look into migrating from MySQL to MS SQL or Azure
+2.) Look into apple safari issure
+3.) Mobile applications
