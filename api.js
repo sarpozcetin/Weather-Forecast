@@ -1,10 +1,6 @@
 /*
 * To-Do
-* Convert sunrise and sunset unix utc to local time javascript and temp stats
-* Read more on javascript file formatting and code structure
 * Learn how to use fetch for specific data fields rather than all fields ***
-* Run this program in a browser and display information on a browser page
-*  - Name of location, Sunrise/sunset, temperature, if sunny display picture if not display other
 */
 
 const getIP = `https://api.ipify.org`
