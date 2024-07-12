@@ -1,5 +1,5 @@
 # LocalView-Application
-Application to display local weather and information to the user
+Application to display local weather and information to the user based on their current location.
 
 API used: https://openweathermap.org/current | https://api.ipify.org | http://ip-api.com/json/{ip}
 Language used: JavaScript
