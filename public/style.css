@@ -1,4 +1,4 @@
-/* Reset default margins and paddings */
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -7,35 +7,77 @@
 
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* Light gray background */
     color: #333; /* Dark text color */
     padding: 20px;
-    background: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    text-align: center; /* Ensure all text is centered */
 }
 
-h1 {
-    font-size: 2em;
-    color: #4CAF50; /* Green heading */
+/* Header Styles */
+header {
+    background-color: #f5f5dc; /* Light beige background */
+    width: 100%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 2.5em;
+    color: #4CAF50; /* Green title */
+    text-align: center; /* Center the title */
+}
+
+/* Main content styling */
+main {
     text-align: center;
+    margin-top: 40px;
+}
+
+/* Weather Information heading */
+main h2 {
+    font-size: 2em;
     margin-bottom: 20px;
 }
 
+/* Weather Information Box */
 #weatherInformation {
-    margin-bottom: 20px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-#timeImage img {
-    max-width: 25%;
-    height: auto;
-    display: block;
+    max-width: 600px;
     margin: 0 auto;
 }
 
-p {
+#weatherInformation p {
     font-size: 1.2em;
-    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+/* Time image (sun/moon) */
+#timeImage img {
+    max-width: 100px; /* Ensure the image doesn't exceed 100px width */
+    height: auto;
+    margin: 20px auto;
+    display: block;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    main h2 {
+        font-size: 1.5em;
+    }
+
+    #weatherInformation p {
+        font-size: 1.1em;
+    }
 }
