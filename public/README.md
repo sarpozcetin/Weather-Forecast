@@ -6,6 +6,6 @@ Languages used: JavaScript | html | SQL | CSS
 
 HOW TO RUN:
 nodeJS installed must be installed. Installation instructions can be found here nodejs.org/en/download/package-manager
-Once installed, run 'node server.js' after logging into your database run web.html by
+Once installed, run 'node backend.js' after logging into your database run web.html by
 either typing 'http://localhost:3000/web.html' into your browser or by running the command 'open web.html'.
 
