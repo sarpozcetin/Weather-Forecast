@@ -39,61 +39,31 @@ function send_to_server(data) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data) //Convert data object to JSON string and set it for request body
-    }).then(response => {
-        if(!response.ok) { //check if respone OK
-            throw new Error('Network response error');
-        }
-        return response.json(); //Parse JSON data and return
-    }).then(data => {
-        console.log('Success:', data);
-    }).catch((error) => {
-        console.error('Error:', error);
+    })
+    .then(response => response.text())
+    .then(result => {
+        console.log('User data saved:',result);
+    })
+    .catch(error => {
+        console.error('Error saving user data:', error);
     });
 }
-//Get user IP address
-fetch(getIP)
-    .then (response => {
-        if (response.ok) {
-            return response.text();
-        } else {
-            throw new Error("API network response failed");
-        }
-    })
-    //Get user location via IP address
-    .then (userIP => {
-        return fetch(`http://ip-api.com/json/${userIP}`);
+
+function retrieve_from_server(data) {
+    send_to_server(data);
+
+    fetch('/getWeather', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            latitude: data.latitude,
+            longitude: data.longitude
+        })
     })
 
-    .then (response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error("API network response failed")
-        }
-    })
-    //Process user location and send data to server
-    .then(location => {
-        const userData = {
-            ip: location.query,
-            timestamp: new Date().toISOString(),
-            latitude: location.lat,
-            longitude: location.lon,
-            city: location.city,
-            country: location.country
-        };
-        send_to_server(userData);
-        //Get weather data based off user location
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.lat}&lon=${location.lon}&appid=1ae6d582e5f832e5ef80c26237b32034`);
-    })
-
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error("API network response failed")
-        }
-    })
-    //Process and display weather data on webpage
+    .then(response => response.json())
     .then(weatherData => {
         const [rise, set] = UTC_convert(weatherData.sys.sunrise, weatherData.sys.sunset)
         const localSet = set.toLocaleString();
@@ -118,3 +88,27 @@ fetch(getIP)
     .catch (error => {
         console.error('Error with fetching the API', error);
     });
+}
+
+//Get user IP address
+fetch(getIP)
+    .then(response => response.text())
+    .then(userIP => fetch(`http://ip-api.com/json/${userIP}`))
+    .then(response => response.json())
+    //Process user location and send data to server
+    .then(location => {
+        const userData = {
+            ip: location.query,
+            timestamp: new Date().toISOString(),
+            latitude: location.lat,
+            longitude: location.lon,
+            city: location.city,
+            country: location.country
+        };
+        retrieve_from_server(userData)
+    })       
+    .catch(error => {
+        console.error('Error with fetching the API', error);
+    });
+        
+    
