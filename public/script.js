@@ -52,7 +52,7 @@ function send_to_server(data) {
 function retrieve_from_server(data) {
     send_to_server(data);
 
-    fetch('/getWeather', {
+    fetch('/getweather', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
