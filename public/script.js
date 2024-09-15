@@ -82,7 +82,7 @@ function retrieve_from_server(data) {
         //display sun if day, moon if night
         const timeImage = document.getElementById('timeImage');
         timeImage.innerHTML = `
-            <img src="${checkTime ? 'https://github.com/sarpozcetin/LocalView-Application/blob/main/sun.png' : 'https://github.com/sarpozcetin/LocalView-Application/blob/main/moon.png'}" alt="${checkTime ? 'sun' : 'moon'}">
+            <img src="${checkTime ? '/sun.png' : '/moon.png'}" alt="${checkTime ? 'sun' : 'moon'}">
         `;
     })
     .catch (error => {
