@@ -1,83 +1,88 @@
-/* General Styles */
-* {
+body {
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    background: url(./daytime.jpg);
+    background-size:cover;
+    background-position: center;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Light gray background */
-    color: #333; /* Dark text color */
+.main-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
-    text-align: center; /* Ensure all text is centered */
-}
-
-/* Header Styles */
-header {
-    background-color: #f5f5dc; /* Light beige background */
-    width: 100%;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-header h1 {
-    font-size: 2.5em;
-    color: #4CAF50; /* Green title */
-    text-align: center; /* Center the title */
-}
-
-/* Main content styling */
-main {
-    text-align: center;
-    margin-top: 40px;
-}
-
-/* Weather Information heading */
-main h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-/* Weather Information Box */
-#weatherInformation {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    max-width: 600px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-#weatherInformation p {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+.monday-box {
+    width: 100px;
+    height: 300px;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0 2px 5px black;
+    text-align: center;
+    padding: 20px;
 }
 
-/* Time image (sun/moon) */
-#timeImage img {
-    max-width: 100px; /* Ensure the image doesn't exceed 100px width */
-    height: auto;
-    margin: 20px auto;
-    display: block;
+.tuesday-box {
+    width: 100px;
+    height: 300px;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0 2px 5px black;
+    text-align: center;
+    padding: 20px;
 }
 
-/* Media Query for smaller screens */
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 1.8em;
-    }
-
-    main h2 {
-        font-size: 1.5em;
-    }
-
-    #weatherInformation p {
-        font-size: 1.1em;
-    }
+.wednesday-box {
+    width: 100px;
+    height: 300px;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0 2px 5px black;
+    text-align: center;
+    padding: 20px;
 }
+
+.thursday-box {
+    width: 100px;
+    height: 300px;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0 2px 5px black;
+    text-align: center;
+    padding: 20px;
+}
+
+.friday-box {
+    width: 100px;
+    height: 300px;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0 2px 5px black;
+    text-align: center;
+    padding: 20px;
+}
+
+.saturday-box {
+    width: 100px;
+    height: 300px;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0 2px 5px black;
+    text-align: center;
+    padding: 20px;
+}
+
+.sunday-box {
+    width: 100px;
+    height: 300px;
+    border-radius: 8px;
+    border: 2px solid black;
+    box-shadow: 0 2px 5px black;
+    text-align: center;
+    padding: 20px;
+}
+
