@@ -16,7 +16,7 @@ body {
     margin: 0 auto;
 }
 
-.monday-box {
+.box {
     width: 100px;
     height: 300px;
     border-radius: 8px;
@@ -25,64 +25,3 @@ body {
     text-align: center;
     padding: 20px;
 }
-
-.tuesday-box {
-    width: 100px;
-    height: 300px;
-    border-radius: 8px;
-    border: 2px solid black;
-    box-shadow: 0 2px 5px black;
-    text-align: center;
-    padding: 20px;
-}
-
-.wednesday-box {
-    width: 100px;
-    height: 300px;
-    border-radius: 8px;
-    border: 2px solid black;
-    box-shadow: 0 2px 5px black;
-    text-align: center;
-    padding: 20px;
-}
-
-.thursday-box {
-    width: 100px;
-    height: 300px;
-    border-radius: 8px;
-    border: 2px solid black;
-    box-shadow: 0 2px 5px black;
-    text-align: center;
-    padding: 20px;
-}
-
-.friday-box {
-    width: 100px;
-    height: 300px;
-    border-radius: 8px;
-    border: 2px solid black;
-    box-shadow: 0 2px 5px black;
-    text-align: center;
-    padding: 20px;
-}
-
-.saturday-box {
-    width: 100px;
-    height: 300px;
-    border-radius: 8px;
-    border: 2px solid black;
-    box-shadow: 0 2px 5px black;
-    text-align: center;
-    padding: 20px;
-}
-
-.sunday-box {
-    width: 100px;
-    height: 300px;
-    border-radius: 8px;
-    border: 2px solid black;
-    box-shadow: 0 2px 5px black;
-    text-align: center;
-    padding: 20px;
-}
-
