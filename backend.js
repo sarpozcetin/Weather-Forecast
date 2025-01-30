@@ -1,8 +1,7 @@
 //Import Modules
 import express from 'express';
 import bodyParser from 'body-parser';
-import mysql from 'mysql2';
-import path from 'path';
+import pg, { Pool } from 'pg';
 import readline from 'readline';
 import { fileURLToPath} from 'url';
 import fetch from 'node-fetch';
@@ -18,78 +17,26 @@ const __dirname = path.dirname(__filename);
 
 const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
 
-const pw_prompt = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: true
+const db = new Pool({
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRESS_PW,
+    port: process.env.POSTGRES_PORT,
 });
 
-/**
- * Prompt user to enter password for MySQL database.
- * @param {function} callback - The callback function to execute with the provided password. 
- */
-function passwordPrompt(callback) {
-    const stdin = process.openStdin();
-
-    //Function to handle key presses in terminal inputs
-    const dataHandler = function (char) {
-        char = char + "";
-        switch (char) {
-            //Handle enter: Handle return: Handle: Crtl + D to end input
-            case "\n": case "\r": case "\u0004":
-                stdin.removeListener('data', dataHandler);
-                break;
-            default:
-                //Replace each character with asterisk to hide input
-                process.stdout.write("\x1b[2K\x1b[200D" + Array(pw_prompt.line.length + 1).join("*"));
-                break;
-        }
-    };
-
-    //Listen to any input data
-    process.stdin.on("data", dataHandler);
-
-    //Ask user to enter their password
-    pw_prompt.question('Enter the MySQL database password: ', (password) => {
-        callback(password)
+db.connect()
+    .then(() => {
+        console.log('PostgreSQL database conected...');
+        startServer(db)
+    })
+    .catch((err) => {
+        console.error('Error connecting to PostgreSQL database:', err.message);
+        process.exit(1); //If connection to database fails exit
     });
-}
-
-/**
- * Connects to MySQL database.
- * @param {string} pw - Password for user database.
- */
-function databaseConnection(pw) {
-    //Create MySQL connection
-    const db = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: pw,
-        database: 'localview'
-    });
-
-    //Connect to MySQL
-    //If password is incorrect recursively try to connect until accepted
-    db.connect((err) => {
-        if(err) {
-            console.error('Error connecting to MySQL database', err.message);
-            if(err.code == 'ER_ACCESS_DENIED_ERROR') {
-                console.log('Password incorrect, try again.');
-                passwordPrompt(databaseConnection)
-            } else {
-                throw err;
-            }
-        } else {
-            console.log('MySQL Connected........');
-            startServer(db);
-            pw_prompt.close()
-        }
-    });
-}
-
 /**
  * Starts the express server and sets up routes
- * @param {object} db - MySQL database connection
+ * @param {object} db - PostgreSQL database connection
  */
 function startServer(db) {
     //Use body parser middleware to parse JSON request
@@ -98,9 +45,9 @@ function startServer(db) {
     app.use(express.static(path.join(__dirname, 'public')));
 
     /**
-     * 
-     * @param {String} timestamp - Timestamp to be converted 
-     * @returns {string} - MySQL formatted timestamp 'YYYY-MM-DD HH:MM:SS'
+     * Converts unix timestamp to PostgreSQL format
+     * @param {String} timestamp - Unix timestamp
+     * @returns {string} - Formatted timestamp 'YYYY-MM-DD HH:MM:SS'
      */
     function timestampConvert(timestamp) {
         const dateObj = new Date(timestamp);
@@ -137,7 +84,7 @@ function startServer(db) {
     });
     app.post('/getweather', (req, res) => {
         const {latitude, longitude} = req.body;
-        const api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}`;
+        const api_url = `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&cnt=${7}&appid=${WEATHER_API_KEY}`;
         fetch(api_url)
             .then(response => response.json())
             .then(weatherData => {
