@@ -1,4 +1,4 @@
-# LocalView-Application
+# Weather-Forecast Application
 A web application that provides users a five-day weather forecast for their location, automatically detecting their IP address and fetching relevant weahter data.
 
 FEATURES
