@@ -10,6 +10,35 @@ function UTC_convert(timestamp) {
     return new Date(timestamp * 1000);
 }
 
+//Weather codes from Tomorrow.io
+const weatherCodes = {
+            0: "Unkownn",
+            1000: "Clear",
+            1100: "Mostly Clear",
+            1101: "Partly Cloudy",
+            1102: "Mostly Cloudy",
+            1001: "Cloudy",
+            2000: "Fog",
+            2100: "Light Fog",
+            3000: "Light Wind",
+            3001: "Wind",
+            3002: "Strong Wind",
+            4000: "Drizzle",
+            4001: "Rain",
+            4200: "Light Rain",
+            4201: "Heavy Rain",
+            5000: "Snow",
+            5001: "Flurries",
+            5100: "Light Snow",
+            5101: "Heavy Snow",
+            6000: "Freezing Drizzle",
+            6001: "Freezing Rain",
+            6200: "Light Freezing Rain",
+            6201: "Heavy Freezing Rain",
+            7000: "Ice Pellets",
+            7101: "Heavy Ice Pellets",
+            7102: "Light Ice Pellets",
+            8000: "ThunderStorms" }
 /**
  * Sends user data to the server
  * @param {object} data - User data to be sent
@@ -51,17 +80,17 @@ function retrieve_from_server(data) {
         }
 
         const dailyForecasts = weatherData.timelines.daily;
-        
         dailyForecasts.forEach((day, index) => {
             if (index < 5) { // We only want 5 day forecasts
                 const date = new Date(day.time).toLocaleDateString();
                 const tempMin = Math.trunc(day.values.temperatureMin);
                 const tempMax = Math.trunc(day.values.temperatureMax);
-                const sunrise = UTC_convert(day.values.sunriseTime).toLocaleTimeString();
-                const sunset = UTC_convert(day.values.sunsetTime).toLocaleTimeString();
+                const sunrise = new Date(day.values.sunriseTime).toLocaleTimeString();
+                const sunset = new Date(day.values.sunsetTime).toLocaleTimeString();
                 const windSpeedMin = Math.trunc(day.values.windSpeedMin);
                 const windSpeedMax = Math.trunc(day.values.windSpeedMax);
-                const conditions = day.values.weatherCodeMax;
+                const conditionsCode = day.values.weatherCodeMax;
+                const conditionsDecoded = weatherCodes[conditionsCode];
                 
                 const box = document.getElementById(`day${index}`);
                 if (box) {
@@ -73,7 +102,7 @@ function retrieve_from_server(data) {
                         <p>Sunset: ${sunset}</p>
                         <p>Wind Speed Min: ${windSpeedMin} km/h</p>
                         <p>Wind Speed Max: ${windSpeedMax} km/h</p>
-                        <p>Conditions: ${conditions}</p>
+                        <p>Conditions: ${conditionsDecoded}</p>
                     `;
                 }
             }
