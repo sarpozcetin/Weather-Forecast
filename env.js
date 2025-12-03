@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Error handling
         document.body.innerHTML = `<h1 style="color:red;text-align:center;padding:50px">
           .env error: ${err.message}<br><br>
-          <small>Tip: Hard-code temporarily in script.js line 2 for testing.</small>
         </h1>`;
       });
 });
