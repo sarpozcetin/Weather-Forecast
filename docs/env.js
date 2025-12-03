@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // Fetches the .env key with cache-busting to avoid stale reads
-    fetch('.env?' + Date.now())
+    fetch('env.config?' + Date.now())
       .then(r => {
         // If the .env doesnt exist or returns 404/403, return fail
         if (!r.ok) {
